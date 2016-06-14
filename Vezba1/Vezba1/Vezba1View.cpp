@@ -57,6 +57,16 @@ void CVezba1View::OnDraw(CDC* pDC)
 	if (!pDoc)
 		return;
 
+	CRect rect;
+	GetClientRect(&rect);
+
+	CPen newPen, *oldPen;
+	CBrush newBrush, *oldBrush;
+
+
+
+
+
 	// TODO: add draw code for native data here
 }
 
