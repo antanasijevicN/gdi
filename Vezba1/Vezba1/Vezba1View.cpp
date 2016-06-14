@@ -63,11 +63,56 @@ void CVezba1View::OnDraw(CDC* pDC)
 	CPen newPen, *oldPen;
 	CBrush newBrush, *oldBrush;
 
+	newBrush.CreateSolidBrush(RGB(100,220,200));
+	newPen.CreatePen(PS_SOLID, 3, RGB(0, 0, 0));
+
+	oldBrush = pDC->SelectObject(&newBrush);
+	oldPen = pDC->SelectObject(&newPen);
+	
+
+	CRect rect1;
+	rect1.SetRect(100, 100, 300, 300);
+	pDC->Rectangle(rect1);
+
+	CPoint triangle1[3] = {
+	CPoint(75,100),
+	CPoint(325,100),
+	CPoint(200,0)
+	};
+	pDC->Polygon(triangle1,3);
+
+	CPoint triangle2[3] = {
+		CPoint(75,300),
+		CPoint(325,300),
+		CPoint(200,400)
+	};
+	pDC->Polygon(triangle2, 3);
 
 
+	CRect rectEl1, rectEl2, rectEl3;
+	rectEl1.SetRect(285,135,315,165);
+	newBrush.DeleteObject();
+	newBrush.CreateSolidBrush(RGB(255, 0, 0));
+	pDC->SelectObject(&newBrush);
+	pDC->Ellipse(rectEl1);
 
+	rectEl2.SetRect(285, 185, 315, 215);
+	newBrush.DeleteObject();
+	newBrush.CreateSolidBrush(RGB(255,255,0));
+	pDC->SelectObject(&newBrush);
+	pDC->Ellipse(rectEl2);
 
-	// TODO: add draw code for native data here
+	rectEl3.SetRect(285, 235, 315, 265);
+	newBrush.DeleteObject();
+	newBrush.CreateSolidBrush(RGB(0,255,0));
+	pDC->SelectObject(&newBrush);
+	pDC->Ellipse(rectEl3);
+
+	pDC->SelectObject(oldPen);
+	newPen.DeleteObject();
+	pDC->SelectObject(oldBrush);
+	newBrush.DeleteObject();
+	
 }
 
 
