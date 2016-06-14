@@ -50,16 +50,90 @@ BOOL CTabletView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CTabletView drawing
 
-void CTabletView::OnDraw(CDC* /*pDC*/)
+void CTabletView::OnDraw(CDC* pDC)
 {
 	CTabletDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
 
-	// TODO: add draw code for native data here
+	CRect rect;
+	GetClientRect(rect);
+
+	//DrawHouse(pDC, 50);
+	//DrawMenu(pDC, 100);
+	//DrawArrow(pDC, 100);
+
+
+	
+}
+void CTabletView::DrawHouse(CDC *pDC, float dx) {
+
+	
+
+	newPen.CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
+	oldPen = pDC->SelectObject(&newPen);
+
+	pDC->MoveTo(0, 0.2*dx);
+	pDC->LineTo(dx, 0.2*dx);
+	pDC->LineTo(0.5*dx, 0);
+	pDC->LineTo(0, 0.2*dx);
+
+	pDC->MoveTo(0.1*dx,0.2*dx);
+	pDC->LineTo(0.1*dx, dx);
+	pDC->LineTo(0.9*dx,dx);
+	pDC->LineTo(0.9*dx, 0.2*dx);
+
+	pDC->SelectObject(oldPen);
+	newPen.DeleteObject();
 }
 
+void CTabletView::DrawMenu(CDC *pDC, float dx) {
+	newPen.CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
+	oldPen = pDC->SelectObject(&newPen);
+
+	pDC->MoveTo(0, 0);
+	pDC->LineTo(dx, 0);
+	pDC->LineTo(dx, dx);
+	pDC->LineTo(0, dx);
+	pDC->LineTo(0, 0);
+
+	pDC->MoveTo(0, 0.25*dx);
+	pDC->LineTo(dx, 0.25*dx);
+	pDC->MoveTo(0, 0.5*dx);
+	pDC->LineTo(dx, 0.5*dx);
+	pDC->MoveTo(0, 0.75*dx);
+	pDC->LineTo(dx, 0.75*dx);
+
+
+	pDC->SelectObject(oldPen);
+	newPen.DeleteObject();
+
+}
+void CTabletView::DrawArrow(CDC *pDC, float dx) {
+	newPen.CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
+	oldPen = pDC->SelectObject(&newPen);
+
+	float r = 0.9*dx;
+	float pi = 3.1415926535897932384626433832795;
+	float angleStep = pi / 180;
+	float angle = pi;
+	pDC->MoveTo(r*sin(angle),dx+r*cos(-angle));
+	for (int i = 0; i < 90; i++) {
+		pDC->LineTo(r*sin(angle), dx+r*cos(-angle));
+		angle -= angleStep;
+	}
+	pDC->MoveTo(0.2*dx, 0);
+	pDC->LineTo(0,0.1*dx);
+	pDC->MoveTo(0.2*dx, 0.2*dx);
+	pDC->LineTo(0, 0.1*dx);
+
+	pDC->SelectObject(oldPen);
+	newPen.DeleteObject();
+}
+void CTabletView::DrawMagnifier(CDC *pDC, float dx) {}
+void CTabletView::DrawDisplay(CDC *pDC, CString sPicName, CRect rcPicture) {}
+void CTabletView::DrawTablet(float dx, float dy, CString sName, int fSize, CString sPicName, COLORREF clrFrame) {}
 
 // CTabletView printing
 

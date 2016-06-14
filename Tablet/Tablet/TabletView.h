@@ -15,12 +15,19 @@ protected: // create from serialization only
 public:
 	CTabletDoc* GetDocument() const;
 
-// Operations
-public:
 
+public:
+	CPen newPen, *oldPen;
+	CBrush newBrush, *oldBrush;
 // Overrides
 public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
+	void DrawHouse(CDC * pDC, float dx);
+	void DrawMenu(CDC * pDC, float dx);
+	void DrawArrow(CDC * pDC, float dx);
+	void DrawMagnifier(CDC * pDC, float dx);
+	void DrawDisplay(CDC * pDC, CString sPicName, CRect rcPicture);
+	void DrawTablet(float dx, float dy, CString sName, int fSize, CString sPicName, COLORREF clrFrame);
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 protected:
 	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
